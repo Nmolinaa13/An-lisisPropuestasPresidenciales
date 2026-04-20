@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué Colombia quieren? — Nico Molina-Arroyave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --blue:    #2E6DA4;
+  --blue-dk: #1E4F7A;
+  --blue-lt: #D6E8F5;
+  --coral:   #E05A3A;
+  --ink:     #1A1A1A;
+  --muted:   #5A6170;
+  --rule:    #DDE3EA;
+  --bg:      #F8F6F2;
+  --white:   #FFFFFF;
+
+  --c-cep:   #C0392B;
+  --c-faj:   #2980B9;
+  --c-val:   #27AE60;
+  --c-esp:   #8E44AD;
+
+  --c-cep-lt: #FDEDEB;
+  --c-faj-lt: #EBF5FB;
+  --c-val-lt: #EAFAF1;
+  --c-esp-lt: #F5EEF8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: var(--blue);
+  color: white;
+  padding: 0.7rem 1.5rem;
+}
+.page-header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.page-header-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.page-header-title em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.05rem;
+}
+.page-header-sub {
+  font-size: 0.75rem;
+  opacity: 0.65;
+  font-weight: 300;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--white);
+  border-bottom: 3px solid var(--blue);
+  padding: 2.5rem 1.5rem 2rem;
+}
+.hero-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: end;
+}
+@media(max-width:560px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-badge { display: none; }
+}
+.hero-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+.hero h1 em {
+  color: var(--coral);
+  font-style: italic;
+}
+.hero-desc {
+  font-size: 0.93rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 520px;
+  font-weight: 300;
+  margin-bottom: 0.75rem;
+}
+.hero-byline {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.hero-byline span { color: var(--blue); }
+.hero-badge {
+  background: var(--blue);
+  color: white;
+  padding: 0.85rem 1.25rem;
+  border-radius: 4px;
+  text-align: center;
+  min-width: 100px;
+  flex-shrink: 0;
+}
+.hero-badge-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.hero-badge-date {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  display: block;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ── SECTIONS ── */
+.section { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--rule); }
+.section:last-of-type { border-bottom: none; }
+.section-band {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--blue);
+}
+.section-num {
+  background: var(--blue);
+  color: white;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+/* ── INTRO BOX ── */
+.intro-box {
+  background: var(--blue-lt);
+  border-left: 4px solid var(--blue);
+  padding: 1.1rem 1.4rem;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 1.75rem;
+  font-size: 0.93rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+.intro-box p + p { margin-top: 0.7rem; }
+
+/* ── CANDIDATE CARDS ── */
+.cands-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+@media(max-width:720px) { .cands-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:420px) { .cands-grid { grid-template-columns: 1fr; } }
+
+.cand-card {
+  background: var(--white);
+  padding: 1.25rem 1rem 1.5rem;
+}
+.cand-topbar {
+  height: 4px;
+  border-radius: 1px;
+  margin-bottom: 1rem;
+}
+.cep .cand-topbar { background: var(--c-cep); }
+.faj .cand-topbar { background: var(--c-faj); }
+.val .cand-topbar { background: var(--c-val); }
+.esp .cand-topbar { background: var(--c-esp); }
+
+.cand-archetype {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+.cep .cand-archetype { color: var(--c-cep); }
+.faj .cand-archetype { color: var(--c-faj); }
+.val .cand-archetype { color: var(--c-val); }
+.esp .cand-archetype { color: var(--c-esp); }
+
+.cand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+}
+.cep .cand-name { color: var(--c-cep); }
+.faj .cand-name { color: var(--c-faj); }
+.val .cand-name { color: var(--c-val); }
+.esp .cand-name { color: var(--c-esp); }
+
+.cand-pill {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-bottom: 0.85rem;
+}
+.cep .cand-pill { background: var(--c-cep-lt); color: var(--c-cep); }
+.faj .cand-pill { background: var(--c-faj-lt); color: var(--c-faj); }
+.val .cand-pill { background: var(--c-val-lt); color: var(--c-val); }
+.esp .cand-pill { background: var(--c-esp-lt); color: var(--c-esp); }
+
+.cand-data {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.cand-data strong {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+  margin-top: 0.45rem;
+  margin-bottom: 0.05rem;
+}
+
+/* DOC STATS */
+.doc-stat {
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  gap: 0.75rem;
+}
+.doc-stat-item {
+  text-align: center;
+  flex: 1;
+}
+.doc-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+.cep .doc-stat-val { color: var(--c-cep); }
+.faj .doc-stat-val { color: var(--c-faj); }
+.val .doc-stat-val { color: var(--c-val); }
+.esp .doc-stat-val { color: var(--c-esp); }
+.doc-stat-label {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+  display: block;
+  margin-top: 0.1rem;
+}
+
+/* ── WORD CLOUD VISUAL ── */
+.wordcloud-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+@media(max-width:720px) { .wordcloud-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:420px) { .wordcloud-grid { grid-template-columns: 1fr; } }
+
+.wc-panel {
+  background: var(--white);
+  padding: 1.1rem;
+}
+.wc-panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid;
+}
+.cep .wc-panel-title { color: var(--c-cep); border-color: var(--c-cep); }
+.faj .wc-panel-title { color: var(--c-faj); border-color: var(--c-faj); }
+.val .wc-panel-title { color: var(--c-val); border-color: var(--c-val); }
+.esp .wc-panel-title { color: var(--c-esp); border-color: var(--c-esp); }
+
+.wc-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: flex-end;
+  line-height: 1.3;
+}
+.wc-word {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  transition: opacity 0.2s;
+  cursor: default;
+}
+.wc-word:hover { opacity: 0.7; }
+
+/* size tiers */
+.wc-xl { font-size: 1.45rem; }
+.wc-lg { font-size: 1.1rem; }
+.wc-md { font-size: 0.88rem; }
+.wc-sm { font-size: 0.72rem; opacity: 0.75; }
+.wc-xs { font-size: 0.62rem; opacity: 0.6; }
+
+/* ── SPECTRUM ── */
+.spectrum-wrap {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.5rem 1.5rem 1.75rem;
+  margin: 1.5rem 0;
+}
+.spectrum-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.55rem;
+}
+.spectrum-track {
+  height: 6px;
+  background: linear-gradient(90deg, var(--c-cep) 0%, #B0BEC5 40%, #B0BEC5 60%, var(--c-esp) 100%);
+  border-radius: 3px;
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+.sdot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2.5px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.sdot-label {
+  position: absolute;
+  top: 13px;
+  transform: translateX(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.spectrum-caption {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-style: normal;
+  text-align: center;
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+/* ── POLL LINE CHART ── */
+.poll-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.poll-title {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+}
+.poll-subtitle {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+/* legend */
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+@media(max-width:480px) { .chart-wrap { height: 220px; } }
+
+.poll-source {
+  font-size: 0.68rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+/* ── SEGUNDA VUELTA ── */
+.sv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+@media(max-width:580px) { .sv-grid { grid-template-columns: 1fr; } }
+.sv-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem;
+  text-align: center;
+}
+.sv-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+.sv-names {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.sv-vs { font-size: 0.62rem; color: var(--muted); font-weight: 400; }
+.sv-track {
+  height: 24px;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 0.45rem;
+}
+.sv-a, .sv-b {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+}
+.sv-a { padding-left: 7px; }
+.sv-b { justify-content: flex-end; padding-right: 7px; }
+.sv-note { font-size: 0.67rem; color: var(--muted); }
+
+/* ── COMP TABLE ── */
+.comp-block {
+  margin-bottom: 1.1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.comp-head {
+  background: var(--blue);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.comp-cells {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+}
+@media(max-width:600px) { .comp-cells { grid-template-columns: 1fr 1fr; } }
+@media(max-width:360px) { .comp-cells { grid-template-columns: 1fr; } }
+.comp-cell {
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink);
+  border-right: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+}
+.comp-cell:last-child { border-right: none; }
+.comp-cell-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.comp-cell.cep .comp-cell-label { color: var(--c-cep); }
+.comp-cell.faj .comp-cell-label { color: var(--c-faj); }
+.comp-cell.val .comp-cell-label { color: var(--c-val); }
+.comp-cell.esp .comp-cell-label { color: var(--c-esp); }
+
+/* ── PRIORITY TABLE ── */
+.priority-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  margin: 1.25rem 0;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.priority-table th {
+  background: var(--blue);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 0.85rem;
+  text-align: left;
+}
+.priority-table td {
+  padding: 0.48rem 0.85rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+.priority-table tr:hover td { background: #F5F9FF; }
+.priority-table tr:last-child td { border-bottom: none; }
+.topic-cell { font-weight: 600; color: var(--ink); font-size: 0.82rem; }
+.dot-cell { text-align: center; }
+.dot-f { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot-h { width: 10px; height: 10px; border-radius: 50%; display: inline-block; opacity: 0.3; }
+.dot-n { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #CCC; display: inline-block; }
+
+/* ── BODY TEXT ── */
+.body-text { font-size: 0.93rem; line-height: 1.85; color: var(--ink); }
+.body-text p { margin-bottom: 1rem; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { font-weight: 700; }
+
+.pull-quote {
+  border-left: 4px solid var(--coral);
+  padding: 0.4rem 0 0.4rem 1.25rem;
+  margin: 1.75rem 0;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.pull-quote .attr {
+  font-size: 0.67rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* ── PATTERNS ── */
+.patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.pattern-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem;
+  border-top: 3px solid var(--blue);
+}
+.pattern-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--blue-dk);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+.pattern-card p { font-size: 0.8rem; line-height: 1.6; color: var(--muted); }
+
+/* ── SIGNAL CARDS ── */
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.signal-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem;
+}
+.signal-archetype {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+.signal-card.cep .signal-archetype { color: var(--c-cep); }
+.signal-card.faj .signal-archetype { color: var(--c-faj); }
+.signal-card.val .signal-archetype { color: var(--c-val); }
+.signal-card.esp .signal-archetype { color: var(--c-esp); }
+.signal-lda {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  background: #F0F0F0;
+  border-radius: 2px;
+  padding: 2px 6px;
+  color: var(--muted);
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.signal-card h4 { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; line-height: 1.3; }
+.signal-card p { font-size: 0.78rem; line-height: 1.6; color: var(--muted); }
+
+/* ── GAPS ── */
+.gaps-list { list-style: none; margin: 1.25rem 0; }
+.gaps-list li {
+  padding: 0.82rem 1rem 0.82rem 2.4rem;
+  margin-bottom: 0.5rem;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--ink);
+  position: relative;
+}
+.gaps-list li::before {
+  content: '○';
+  position: absolute;
+  left: 0.85rem;
+  top: 0.82rem;
+  color: var(--blue);
+  font-size: 0.82rem;
+}
+.gaps-list strong { font-weight: 700; }
+
+/* ── METHOD ── */
+.method-note {
+  background: #F3F3F3;
+  border-left: 3px solid #CCC;
+  border-radius: 0 4px 4px 0;
+  padding: 0.9rem 1.2rem;
+  margin: 1.25rem 0;
+  font-size: 0.77rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.method-note strong { color: var(--ink); }
+
+/* ── CONCLUSION ── */
+.conclusion-band {
+  background: var(--blue);
+  color: white;
+  padding: 2.5rem 1.5rem;
+}
+.conclusion-inner { max-width: 960px; margin: 0 auto; }
+.conclusion-band h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+.conclusion-band h2 em { font-style: italic; color: #A8CFEE; }
+.conclusion-band p {
+  font-size: 0.93rem;
+  line-height: 1.85;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+  max-width: 720px;
+}
+.conclusion-band p:last-child { margin-bottom: 0; }
+.conclusion-band .method-note {
+  background: rgba(0,0,0,0.15);
+  border-left-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.75);
+  margin-top: 1.5rem;
+}
+.conclusion-band .method-note strong { color: white; }
+
+footer {
+  background: var(--blue-dk);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 1.1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="page-header-title">Los participantes <em>de esta elección</em></span>
+    <span class="page-header-sub">CPOP · Análisis comparado de programas presidenciales · Colombia 2026</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Análisis electoral · Primera vuelta 31 de mayo de 2026</p>
+      <h1>¿Qué Colombia<br><em>quieren?</em></h1>
+      <p class="hero-desc">Análisis comparado de los programas de gobierno de los cuatro candidatos con mayor intención de voto, cruzado con el ponderador de encuestas de La Silla Vacía y procesado con herramientas de minería de texto (Orange Data Mining).</p>
+      <p class="hero-byline">Por <span>Nico Molina-Arroyave</span> · Analista político</p>
+    </div>
+    <div class="hero-badge">
+      <span class="hero-badge-label">Primera vuelta</span>
+      <span class="hero-badge-date">31·05<br>2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+<!-- ═══════════════════════════════════
+     01 · LOS CANDIDATOS
+═══════════════════════════════════ -->
+<div class="section">
+  <div class="section-band">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Los participantes, de izquierda a derecha</h2>
+  </div>
+
+  <div class="cands-grid">
+
+    <div class="cand-card cep">
+      <div class="cand-topbar"></div>
+      <span class="cand-archetype">El ideólogo</span>
+      <div class="cand-name">Iván Cepeda</div>
+      <span class="cand-pill">Izquierda popular</span>
+      <div class="cand-data">
+        <strong>Posición ideológica</strong>Izquierda transformadora
+        <strong>Frente al gobierno</strong>Apoyo, oficialismo
+        <strong>Encuestas (ponderador)</strong>1.° · ~36%
+        <strong>Partido</strong>Pacto Histórico
+        <strong>Eje programático</strong>Paz, reforma agraria, derechos, democracia participativa
+        <strong>Tipo de documento</strong>Manifiesto político extenso, vocabulario de movilización
+      </div>
+      <div class="doc-stat">
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">433</span>
+          <span class="doc-stat-label">páginas</span>
+        </div>
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">113k</span>
+          <span class="doc-stat-label">palabras</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand-card faj">
+      <div class="cand-topbar"></div>
+      <span class="cand-archetype">El técnico</span>
+      <div class="cand-name">Sergio Fajardo</div>
+      <span class="cand-pill">Centro progresista</span>
+      <div class="cand-data">
+        <strong>Posición ideológica</strong>Centro reformista tecnocrático
+        <strong>Frente al gobierno</strong>Oposición moderada
+        <strong>Encuestas (ponderador)</strong>4.° · ~5%, sin despegar
+        <strong>Partido</strong>Coalición de centro
+        <strong>Eje programático</strong>Educación, reforma institucional, desarrollo productivo
+        <strong>Tipo de documento</strong>Programa técnico detallado, 14 grupos poblacionales
+      </div>
+      <div class="doc-stat">
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">62</span>
+          <span class="doc-stat-label">páginas</span>
+        </div>
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">26k</span>
+          <span class="doc-stat-label">palabras</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand-card val">
+      <div class="cand-topbar"></div>
+      <span class="cand-archetype">La gerente</span>
+      <div class="cand-name">Paloma Valencia</div>
+      <span class="cand-pill">Derecha liberal</span>
+      <div class="cand-data">
+        <strong>Posición ideológica</strong>Derecha pro-mercado, gerencial
+        <strong>Frente al gobierno</strong>Oposición férrea
+        <strong>Encuestas (ponderador)</strong>2.° · ~22%, mayor crecimiento
+        <strong>Partido</strong>Centro Democrático
+        <strong>Eje programático</strong>5 bombas, gestión por datos, fórmula Oviedo
+        <strong>Tipo de documento</strong>111 puntos numerados, lenguaje empresarial
+      </div>
+      <div class="doc-stat">
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">19</span>
+          <span class="doc-stat-label">páginas</span>
+        </div>
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">6,7k</span>
+          <span class="doc-stat-label">palabras</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand-card esp">
+      <div class="cand-topbar"></div>
+      <span class="cand-archetype">El outsider</span>
+      <div class="cand-name">Abelardo De La Espriella</div>
+      <span class="cand-pill">Derecha populista</span>
+      <div class="cand-data">
+        <strong>Posición ideológica</strong>Derecha conservadora, narrativa moral
+        <strong>Frente al gobierno</strong>Oposición radical
+        <strong>Encuestas (ponderador)</strong>3.° · ~21%, en caída
+        <strong>Trayectoria</strong>Candidato por firmas, outsider institucional
+        <strong>Eje programático</strong>Patria Milagro, salvación nacional, anticorrupción
+        <strong>Tipo de documento</strong>13 propuestas con argumento, cifras y marco moral
+      </div>
+      <div class="doc-stat">
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">3</span>
+          <span class="doc-stat-label">páginas</span>
+        </div>
+        <div class="doc-stat-item">
+          <span class="doc-stat-val">3,4k</span>
+          <span class="doc-stat-label">palabras</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SPECTRUM -->
+  <div class="spectrum-wrap">
+    <div class="spectrum-ends">
+      <span>← Transformación estructural</span>
+      <span>Centro</span>
+      <span>Conservadurismo →</span>
+    </div>
+    <div class="spectrum-track">
+      <div class="sdot" style="left:10%;background:var(--c-cep);">
+        <span class="sdot-label" style="color:var(--c-cep);">Cepeda</span>
+      </div>
+      <div class="sdot" style="left:42%;background:var(--c-faj);">
+        <span class="sdot-label" style="color:var(--c-faj);">Fajardo</span>
+      </div>
+      <div class="sdot" style="left:68%;background:var(--c-val);">
+        <span class="sdot-label" style="color:var(--c-val);">Valencia</span>
+      </div>
+      <div class="sdot" style="left:88%;background:var(--c-esp);">
+        <span class="sdot-label" style="color:var(--c-esp);">De la Espriella</span>
+      </div>
+    </div>
+    <p class="spectrum-caption">Posicionamiento según énfasis programático. Lectura relativa de los documentos, no escala exacta.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     02 · PALABRAS CLAVE
+═══════════════════════════════════ -->
+<div class="section">
+  <div class="section-band">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Las palabras de cada programa</h2>
+  </div>
+
+  <div class="intro-box">
+    <p>Las nubes de palabras muestran los términos con mayor peso léxico en cada documento, según el análisis de Word Cloud con Orange Data Mining. El tamaño es proporcional a la frecuencia ponderada. Lo que domina el vocabulario de un programa revela su arquitectura semántica: qué categorías conceptuales son estructurantes y cuáles son accesorias.</p>
+  </div>
+
+  <div class="wordcloud-grid">
+
+    <!-- CEPEDA -->
+    <div class="wc-panel cep">
+      <div class="wc-panel-title">Iván Cepeda · 113k palabras</div>
+      <div class="wc-words">
+        <span class="wc-word wc-xl" style="color:var(--c-cep)">gobierno</span>
+        <span class="wc-word wc-lg" style="color:#B03A2E">pueblo</span>
+        <span class="wc-word wc-lg" style="color:#C0392B">más</span>
+        <span class="wc-word wc-lg" style="color:#922B21">colombia</span>
+        <span class="wc-word wc-md" style="color:#C0392B">política</span>
+        <span class="wc-word wc-md" style="color:#A93226">social</span>
+        <span class="wc-word wc-md" style="color:#B03A2E">vida</span>
+        <span class="wc-word wc-md" style="color:#C0392B">paz</span>
+        <span class="wc-word wc-md" style="color:#922B21">revolución</span>
+        <span class="wc-word wc-sm" style="color:#A93226">corrupción</span>
+        <span class="wc-word wc-sm" style="color:#C0392B">víctimas</span>
+        <span class="wc-word wc-sm" style="color:#B03A2E">derechos</span>
+        <span class="wc-word wc-sm" style="color:#922B21">violencia</span>
+        <span class="wc-word wc-sm" style="color:#C0392B">cambio</span>
+        <span class="wc-word wc-sm" style="color:#A93226">territorios</span>
+        <span class="wc-word wc-sm" style="color:#B03A2E">justicia</span>
+        <span class="wc-word wc-sm" style="color:#C0392B">comunidades</span>
+        <span class="wc-word wc-xs" style="color:#922B21">agraria</span>
+        <span class="wc-word wc-xs" style="color:#A93226">indígenas</span>
+        <span class="wc-word wc-xs" style="color:#C0392B">dignidad</span>
+        <span class="wc-word wc-xs" style="color:#B03A2E">reforma</span>
+        <span class="wc-word wc-xs" style="color:#922B21">mujeres</span>
+        <span class="wc-word wc-xs" style="color:#A93226">pobreza</span>
+        <span class="wc-word wc-xs" style="color:#C0392B">lucha</span>
+        <span class="wc-word wc-xs" style="color:#B03A2E">historia</span>
+      </div>
+    </div>
+
+    <!-- FAJARDO -->
+    <div class="wc-panel faj">
+      <div class="wc-panel-title">Sergio Fajardo · 26k palabras</div>
+      <div class="wc-words">
+        <span class="wc-word wc-xl" style="color:var(--c-faj)">colombia</span>
+        <span class="wc-word wc-lg" style="color:#1A6AA0">nacional</span>
+        <span class="wc-word wc-lg" style="color:#2980B9">sistema</span>
+        <span class="wc-word wc-lg" style="color:#1F618D">salud</span>
+        <span class="wc-word wc-md" style="color:#2980B9">desarrollo</span>
+        <span class="wc-word wc-md" style="color:#1A6AA0">educación</span>
+        <span class="wc-word wc-md" style="color:#1F618D">social</span>
+        <span class="wc-word wc-md" style="color:#2980B9">fortaleceremos</span>
+        <span class="wc-word wc-md" style="color:#1A6AA0">seguridad</span>
+        <span class="wc-word wc-sm" style="color:#2980B9">integral</span>
+        <span class="wc-word wc-sm" style="color:#1F618D">política</span>
+        <span class="wc-word wc-sm" style="color:#1A6AA0">empleo</span>
+        <span class="wc-word wc-sm" style="color:#2980B9">territorial</span>
+        <span class="wc-word wc-sm" style="color:#1F618D">mujeres</span>
+        <span class="wc-word wc-sm" style="color:#1A6AA0">justicia</span>
+        <span class="wc-word wc-sm" style="color:#2980B9">digital</span>
+        <span class="wc-word wc-sm" style="color:#1F618D">crearemos</span>
+        <span class="wc-word wc-xs" style="color:#1A6AA0">acceso</span>
+        <span class="wc-word wc-xs" style="color:#2980B9">impulsaremos</span>
+        <span class="wc-word wc-xs" style="color:#1F618D">protección</span>
+        <span class="wc-word wc-xs" style="color:#1A6AA0">jóvenes</span>
+        <span class="wc-word wc-xs" style="color:#2980B9">infraestructura</span>
+        <span class="wc-word wc-xs" style="color:#1F618D">formación</span>
+        <span class="wc-word wc-xs" style="color:#1A6AA0">biodiversidad</span>
+        <span class="wc-word wc-xs" style="color:#2980B9">vivienda</span>
+      </div>
+    </div>
+
+    <!-- VALENCIA -->
+    <div class="wc-panel val">
+      <div class="wc-panel-title">Paloma Valencia · 6,7k palabras</div>
+      <div class="wc-words">
+        <span class="wc-word wc-xl" style="color:var(--c-val)">colombia</span>
+        <span class="wc-word wc-lg" style="color:#1E8449">inversión</span>
+        <span class="wc-word wc-lg" style="color:#27AE60">más</span>
+        <span class="wc-word wc-lg" style="color:#196F3D">recursos</span>
+        <span class="wc-word wc-md" style="color:#27AE60">seguridad</span>
+        <span class="wc-word wc-md" style="color:#1E8449">salud</span>
+        <span class="wc-word wc-md" style="color:#196F3D">puede</span>
+        <span class="wc-word wc-md" style="color:#27AE60">real</span>
+        <span class="wc-word wc-md" style="color:#1E8449">millones</span>
+        <span class="wc-word wc-sm" style="color:#196F3D">justicia</span>
+        <span class="wc-word wc-sm" style="color:#27AE60">crisis</span>
+        <span class="wc-word wc-sm" style="color:#1E8449">inteligencia</span>
+        <span class="wc-word wc-sm" style="color:#196F3D">infraestructura</span>
+        <span class="wc-word wc-sm" style="color:#27AE60">agua</span>
+        <span class="wc-word wc-sm" style="color:#1E8449">empresas</span>
+        <span class="wc-word wc-sm" style="color:#196F3D">mujeres</span>
+        <span class="wc-word wc-sm" style="color:#27AE60">resultados</span>
+        <span class="wc-word wc-xs" style="color:#1E8449">pobreza</span>
+        <span class="wc-word wc-xs" style="color:#196F3D">confianza</span>
+        <span class="wc-word wc-xs" style="color:#27AE60">crédito</span>
+        <span class="wc-word wc-xs" style="color:#1E8449">territorio</span>
+        <span class="wc-word wc-xs" style="color:#196F3D">energía</span>
+        <span class="wc-word wc-xs" style="color:#27AE60">corrupción</span>
+        <span class="wc-word wc-xs" style="color:#1E8449">artificial</span>
+        <span class="wc-word wc-xs" style="color:#196F3D">zonas</span>
+      </div>
+    </div>
+
+    <!-- DE LA ESPRIELLA -->
+    <div class="wc-panel esp">
+      <div class="wc-panel-title">De La Espriella · 3,4k palabras</div>
+      <div class="wc-words">
+        <span class="wc-word wc-xl" style="color:var(--c-esp)">patria</span>
+        <span class="wc-word wc-lg" style="color:#76448A">más</span>
+        <span class="wc-word wc-lg" style="color:#8E44AD">milagro</span>
+        <span class="wc-word wc-lg" style="color:#6C3483">millones</span>
+        <span class="wc-word wc-md" style="color:#8E44AD">central</span>
+        <span class="wc-word wc-md" style="color:#76448A">propuestas</span>
+        <span class="wc-word wc-md" style="color:#6C3483">colombia</span>
+        <span class="wc-word wc-md" style="color:#8E44AD">argumento</span>
+        <span class="wc-word wc-md" style="color:#76448A">nunca</span>
+        <span class="wc-word wc-sm" style="color:#6C3483">seguridad</span>
+        <span class="wc-word wc-sm" style="color:#8E44AD">fiscal</span>
+        <span class="wc-word wc-sm" style="color:#76448A">corrupción</span>
+        <span class="wc-word wc-sm" style="color:#6C3483">educación</span>
+        <span class="wc-word wc-sm" style="color:#8E44AD">salud</span>
+        <span class="wc-word wc-sm" style="color:#76448A">billones</span>
+        <span class="wc-word wc-sm" style="color:#6C3483">inversión</span>
+        <span class="wc-word wc-sm" style="color:#8E44AD">crear</span>
+        <span class="wc-word wc-xs" style="color:#76448A">ilegales</span>
+        <span class="wc-word wc-xs" style="color:#6C3483">rural</span>
+        <span class="wc-word wc-xs" style="color:#8E44AD">fortalecer</span>
+        <span class="wc-word wc-xs" style="color:#76448A">mujeres</span>
+        <span class="wc-word wc-xs" style="color:#6C3483">crecimiento</span>
+        <span class="wc-word wc-xs" style="color:#8E44AD">infraestructura</span>
+        <span class="wc-word wc-xs" style="color:#76448A">cultura</span>
+        <span class="wc-word wc-xs" style="color:#6C3483">recuperar</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="method-note">
+    El tamaño de cada palabra es proporcional a su peso en el análisis de Word Cloud de Orange Data Mining. Los colores son variaciones dentro de la paleta de cada candidato para crear contraste visual entre palabras del mismo panel. El vocabulario dominante de cada documento revela su lógica comunicativa: Cepeda opera con un léxico político-movilizador, Fajardo con vocabulario institucional-sistémico, Valencia con lenguaje gerencial-inversional y De la Espriella con marco narrativo-moral.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     03 · ENCUESTAS
+═══════════════════════════════════ -->
+<div class="section">
+  <div class="section-band">
+    <span class="section-num">03</span>
+    <h2 class="section-title">El estado de la carrera electoral</h2>
+  </div>
+
+  <div class="intro-box">
+    <p>El ponderador de La Silla Vacía combina encuestas ponderadas por calidad metodológica, recencia y tamaño de muestra. Cepeda lidera en primera vuelta, pero la segunda vuelta invierte el resultado: Valencia y De la Espriella lo superarían en un balotaje, según Atlas Intel (abril 2026). El centro, con Fajardo, no logra despegar.</p>
+  </div>
+
+  <!-- LINE CHART -->
+  <div class="poll-card">
+    <p class="poll-title">Ponderador La Silla Vacía — evolución de la intención de voto 2026</p>
+    <p class="poll-subtitle">Porcentaje de intención de voto ponderado por calidad de encuestadora, recencia y muestra. Los datos anteriores a las consultas del 8 de marzo son de menor comparabilidad por cambio metodológico.</p>
+    <div class="chart-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c-cep)"></div><span style="color:var(--c-cep)">Cepeda</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c-faj)"></div><span style="color:var(--c-faj)">Fajardo</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c-val)"></div><span style="color:var(--c-val)">Valencia</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c-esp)"></div><span style="color:var(--c-esp)">De la Espriella</span></div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="pollChart" role="img" aria-label="Línea de tiempo de intención de voto para candidatos presidenciales Colombia 2026">Evolución de intención de voto: Cepeda lidera con ~36%, Valencia sube a ~22%, De la Espriella baja a ~21%, Fajardo estancado en ~5%.</canvas>
+    </div>
+    <p class="poll-source">Fuente: Ponderador electoral La Silla Vacía (abril 2026). Encuestadoras: Atlas Intel / Semana, GAD3 / RCN, CNC / Cambio, Guarumo / Ecoanalítica. El ponderador actualizado (post-consultas de marzo) no es directamente comparable con ediciones anteriores.</p>
+  </div>
+
+  <!-- SEGUNDA VUELTA -->
+  <p style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);margin-bottom:0.75rem;">Escenarios de segunda vuelta — Atlas Intel (6-9 de abril de 2026, n=3.617)</p>
+  <div class="sv-grid">
+    <div class="sv-card">
+      <p class="sv-label">Escenario A</p>
+      <div class="sv-names">
+        <span style="color:var(--c-esp)">De la Espriella</span>
+        <span class="sv-vs">vs</span>
+        <span style="color:var(--c-cep)">Cepeda</span>
+      </div>
+      <div class="sv-track">
+        <div class="sv-a" style="width:55%;background:var(--c-esp);">48.8%</div>
+        <div class="sv-b" style="width:45%;background:var(--c-cep);">39.8%</div>
+      </div>
+      <p class="sv-note">Ganaría De la Espriella, +9 pts</p>
+    </div>
+    <div class="sv-card">
+      <p class="sv-label">Escenario B</p>
+      <div class="sv-names">
+        <span style="color:var(--c-val)">Valencia</span>
+        <span class="sv-vs">vs</span>
+        <span style="color:var(--c-cep)">Cepeda</span>
+      </div>
+      <div class="sv-track">
+        <div class="sv-a" style="width:54%;background:var(--c-val);">47.1%</div>
+        <div class="sv-b" style="width:46%;background:var(--c-cep);">39.6%</div>
+      </div>
+      <p class="sv-note">Ganaría Valencia, +7.5 pts</p>
+    </div>
+    <div class="sv-card">
+      <p class="sv-label">Escenario C</p>
+      <div class="sv-names">
+        <span style="color:var(--c-cep)">Cepeda</span>
+        <span class="sv-vs">vs</span>
+        <span style="color:var(--c-faj)">Fajardo</span>
+      </div>
+      <div class="sv-track">
+        <div class="sv-a" style="width:51%;background:var(--c-cep);">38.3%</div>
+        <div class="sv-b" style="width:49%;background:var(--c-faj);">37.4%</div>
+      </div>
+      <p class="sv-note">Empate técnico, dentro del margen de error</p>
+    </div>
+  </div>
+
+  <div class="method-note">
+    <strong>Nota metodológica sobre encuestas:</strong> En 2026 persisten diferencias metodológicas significativas entre encuestadoras. Atlas Intel muestra márgenes más estrechos entre candidatos, mientras que CNC e Invamer dan ventajas más amplias a Cepeda. El CNC (marzo de 2026) muestra una segunda vuelta Cepeda-Valencia en empate técnico (43.3% vs 42.9%). Los datos de segunda vuelta corresponden exclusivamente a Atlas Intel, la encuesta más reciente disponible al momento de este análisis.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     04 · TEXTO Y DATOS
+═══════════════════════════════════ -->
+<div class="section">
+  <div class="section-band">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Lo que los datos de texto revelan</h2>
+  </div>
+
+  <div class="body-text" style="margin-bottom:1.5rem;">
+    <p>El análisis de Word Cloud y Topic Modelling con LDA (Orange Data Mining) sobre los documentos programáticos produce un hallazgo contraintuitivo: todos los programas generan tópicos LDA homogéneos, es decir, el modelo no logra separar los temas en ningún caso. Pero las razones son distintas para cada candidato, y esa diferencia es diagnósticamente valiosa.</p>
+  </div>
+
+  <div class="signal-grid">
+    <div class="signal-card cep">
+      <span class="signal-archetype">El ideólogo</span>
+      <span class="signal-lda">LDA: gobierno · pueblo · revolución · vida</span>
+      <h4>Manifiesto, no plan técnico</h4>
+      <p>Los pesos absolutos son 8 a 20 veces mayores que los de los demás candidatos (gobierno: 634). Es el documento más extenso y repetitivo, con 433 páginas y 113k palabras. "Revolución" (216) y "pueblo" (366) son términos estructurantes. El LDA no diferencia temas porque el texto es un dispositivo de movilización con una sola voz ideológica.</p>
+    </div>
+    <div class="signal-card faj">
+      <span class="signal-archetype">El técnico</span>
+      <span class="signal-lda">LDA: colombia · sistema · desarrollo · social</span>
+      <h4>Densidad técnica sobredimensionada</h4>
+      <p>"Sistema" ocupa el tercer lugar en frecuencia (55), señal de arquitectura institucional. En 62 páginas y 26k palabras, el LDA es homogéneo no por retórica sino por sobredensidad programática: hay tanto contenido genuino que el modelo no puede separarlo. "Fortaleceremos" como verbo dominante: el Estado como sujeto activo, no el candidato.</p>
+    </div>
+    <div class="signal-card val">
+      <span class="signal-archetype">La gerente</span>
+      <span class="signal-lda">LDA: inversión · recursos · puede · real</span>
+      <h4>Gramática gerencial uniforme</h4>
+      <p>"Inversión" alcanza el mismo peso que "país" (18), único candidato con ese patrón. En apenas 19 páginas y 6,7k palabras, el vocabulario gerencial es tan transversal que aplana la diversidad temática. "Puede" (13) como modal recurrente: no imperativo moral sino posibilidad pragmática.</p>
+    </div>
+    <div class="signal-card esp">
+      <span class="signal-archetype">El outsider</span>
+      <span class="signal-lda">LDA: patria · milagro · argumento · cifras</span>
+      <h4>El marco aplasta al contenido</h4>
+      <p>Con solo 3 páginas y 3,4k palabras, es el documento más conciso. Los tópicos están dominados por términos de marco narrativo: "patria" (19), "milagro" (16), "nunca" (10). No vende propuestas, vende una identidad moral. La arquitectura retórica (argumento, propuestas, cifras) es tan uniforme que el modelo no puede separar los sectores.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     05 · QUÉ PROPONEN
+═══════════════════════════════════ -->
+<div class="section">
+  <div class="section-band">
+    <span class="section-num">05</span>
+    <h2 class="section-title">¿Qué propone cada uno?</h2>
+  </div>
+
+  <div class="comp-block">
+    <div class="comp-head">Seguridad y orden público</div>
+    <div class="comp-cells">
+      <div class="comp-cell cep"><div class="comp-cell-label">Cepeda</div>Paz negociada como condición de seguridad real. Desmantelamiento del paramilitarismo. La violencia entendida como fenómeno estructural, no solo delincuencial.</div>
+      <div class="comp-cell faj"><div class="comp-cell-label">Fajardo</div>Plan Guardián. 40.000 nuevos policías. Ataque a las rentas criminales. Énfasis en prevención del reclutamiento juvenil. Seguridad integral con justicia y oportunidades.</div>
+      <div class="comp-cell val"><div class="comp-cell-label">Valencia</div>Plan 30-30: 30.000 militares nuevos, 30.000 policías nuevos. Gasto en defensa al 4% del PIB. Ciberinteligencia y drones. Cooperación tipo Plan Colombia.</div>
+      <div class="comp-cell esp"><div class="comp-cell-label">De la Espriella</div>Destruir 330.000 ha de coca. Fumigación aérea, extradición, sin negociación. Bloque de Búsqueda contra la extorsión. "Con los criminales no habrá negociación."</div>
+    </div>
+  </div>
+
+  <div class="comp-block">
+    <div class="comp-head">Economía y modelo de desarrollo</div>
+    <div class="comp-cells">
+      <div class="comp-cell cep"><div class="comp-cell-label">Cepeda</div>Reforma tributaria progresiva. Economía popular fortalecida. Control de rentas extractivas. Redistribución estructural de la riqueza. Soberanía energética.</div>
+      <div class="comp-cell faj"><div class="comp-cell-label">Fajardo</div>Consolidación fiscal responsable. DIAN moderna. Vocación exportadora. Bioeconomía y diversificación. Articulación público-privada. Finanzas sanas como condición del gasto social.</div>
+      <div class="comp-cell val"><div class="comp-cell-label">Valencia</div>Meta del 5% de crecimiento. Reducción del impuesto de renta empresarial. Inversión del 25% del PIB. Seguridad jurídica como palanca. Fracking e hidrocarburos a un millón de barriles diarios.</div>
+      <div class="comp-cell esp"><div class="comp-cell-label">De la Espriella</div>Meta del 7% de crecimiento. Ajuste fiscal de $70 billones. Reducción del Estado en una cuarta parte. Gran Revolución de Desregulación. Visión pro-empresa total.</div>
+    </div>
+  </div>
+
+  <div class="comp-block">
+    <div class="comp-head">Salud — plan de choque</div>
+    <div class="comp-cells">
+      <div class="comp-cell cep"><div class="comp-cell-label">Cepeda</div>Salud como derecho universal. Fortalecimiento de lo público. Crítica al modelo de aseguramiento. Sistema intercultural para pueblos étnicos (SISPI).</div>
+      <div class="comp-cell faj"><div class="comp-cell-label">Fajardo</div>Auditorías independientes a EPS. Reforma financiera del sistema. Modelo territorializado. Atención primaria fortalecida. Salud mental como prioridad nacional explícita.</div>
+      <div class="comp-cell val"><div class="comp-cell-label">Valencia</div>PMU 24/7 en Presidencia. Resolver 10 millones de atenciones represadas en los primeros 100 días. Inyección de $9 billones ($3 en medicamentos, $6 en deudas). Hospitales padrinos.</div>
+      <div class="comp-cell esp"><div class="comp-cell-label">De la Espriella</div>Plan de choque de $10 billones. Revisión trimestral de la UPC. Sistema mixto. Paciente en el centro. Telemedicina. Arbitraje de recursos de ADRES.</div>
+    </div>
+  </div>
+
+  <div class="comp-block">
+    <div class="comp-head">Energía — la fractura más reveladora</div>
+    <div class="comp-cells">
+      <div class="comp-cell cep"><div class="comp-cell-label">Cepeda</div>Soberanía energética. Crítica a la dependencia extractivista. Transición justa con las comunidades como protagonistas del proceso.</div>
+      <div class="comp-cell faj"><div class="comp-cell-label">Fajardo</div>Transición sin improvisación. Meta del 80% de generación renovable. 1.000 MW nuevos por año. Gas y petróleo como puente. Fracking solo bajo condiciones estrictas e independientes.</div>
+      <div class="comp-cell val"><div class="comp-cell-label">Valencia</div>La apuesta más extractivista: fracking, un millón de barriles diarios, carbón y gas. Simultáneamente: renovables, hidroeléctricas, nuclear. Es la tensión interna más aguda entre los cuatro.</div>
+      <div class="comp-cell esp"><div class="comp-cell-label">De la Espriella</div>Recuperar exploración de petróleo y gas. Ecopetrol como activo estratégico. Renovables y energía nuclear. No cierra el grifo fósil.</div>
+    </div>
+  </div>
+
+  <div class="comp-block">
+    <div class="comp-head">Paz y conflicto armado</div>
+    <div class="comp-cells">
+      <div class="comp-cell cep"><div class="comp-cell-label">Cepeda</div>El eje más desarrollado de su programa. Paz como condición de todo lo demás. Justicia transicional, verdad, reparación integral, garantías de no repetición.</div>
+      <div class="comp-cell faj"><div class="comp-cell-label">Fajardo</div>Autoridad democrática con firmeza y dentro de la ley. Planes integrales de seguridad y bienestar en los territorios. Prevención como política de paz de largo plazo.</div>
+      <div class="comp-cell val"><div class="comp-cell-label">Valencia</div>Fuerza pública como herramienta principal. Recuperación territorial. Erradicación de grupos ilegales en parques nacionales. Sin propuesta de negociación explícita.</div>
+      <div class="comp-cell esp"><div class="comp-cell-label">De la Espriella</div>"La Paz Total de Petro no es paz fracasada, sino traición a la Patria." Sin negociación con criminales. Recuperación territorial exclusivamente por la fuerza.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     06 · SIMILITUDES Y VACÍOS
+═══════════════════════════════════ -->
+<div class="section">
+  <div class="section-band">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Lo que comparten y lo que callan</h2>
+  </div>
+
+  <div class="pull-quote">
+    <p>Bajo la diferencia de vocabularios, los cuatro programas convergen en un diagnóstico: Colombia está en crisis simultánea y exige intervención urgente. Lo que los separa no es el diagnóstico, sino el origen que le atribuyen a esa crisis y el tipo de Estado que proponen como solución.</p>
+    <span class="attr">Análisis comparado de programas presidenciales 2026</span>
+  </div>
+
+  <div class="patterns-grid">
+    <div class="pattern-card">
+      <h4>Salud: urgencia unánime</h4>
+      <p>Los cuatro proponen un plan de choque en los primeros 100 días, los cuatro mencionan el pago de deudas del sistema. Es el tema con mayor convergencia diagnóstica y mayor divergencia en la solución de fondo.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Tecnología como palanca</h4>
+      <p>Todos apuestan por IA, blockchain o digitalización, aunque con propósitos distintos: anticorrupción en De la Espriella, educación y CTI en Fajardo, gestión pública eficiente en Valencia, participación ciudadana en Cepeda.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>El campo: diagnóstico común</h4>
+      <p>Todos reconocen el abandono rural, pero Valencia propone zonas francas y agroindustria, Cepeda habla de reforma agraria redistributiva, y Fajardo y De la Espriella de formalización y productividad.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>La ecuación fiscal sin resolver</h4>
+      <p>Los cuatro prometen reducir el déficit, no subir impuestos a la clase media y aumentar el gasto social. Esta ecuación no cierra matemáticamente y ningún candidato la resuelve con honestidad.</p>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto; margin: 1.5rem 0;">
+  <table class="priority-table">
+    <thead>
+      <tr>
+        <th style="min-width:160px">Tema</th>
+        <th style="color:#FFCDD2">Cepeda</th>
+        <th style="color:#BBDEFB">Fajardo</th>
+        <th style="color:#C8E6C9">Valencia</th>
+        <th style="color:#E1BEE7">De la Espriella</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="topic-cell">Seguridad y orden público</td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Salud</td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Educación</td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Economía y modelo fiscal</td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Paz y conflicto armado</td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-n"></span></td>
+        <td class="dot-cell"><span class="dot-n"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Medio ambiente</td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Reforma agraria y campo</td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Anticorrupción</td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Pueblos étnicos y diversidad</td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-n"></span></td>
+        <td class="dot-cell"><span class="dot-n"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Ciencia, tecnología e innovación</td>
+        <td class="dot-cell"><span class="dot-n"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-esp)"></span></td>
+      </tr>
+      <tr><td class="topic-cell">Política exterior</td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-cep)"></span></td>
+        <td class="dot-cell"><span class="dot-f" style="background:var(--c-faj)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-val)"></span></td>
+        <td class="dot-cell"><span class="dot-h" style="background:var(--c-esp)"></span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:0.67rem;color:var(--muted);margin-top:0.3rem;">● Eje prioritario &nbsp; ◐ Presente pero secundario &nbsp; ○ Ausente o marginal</p>
+
+  <p style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--blue-dk);margin:1.75rem 0 0.75rem;">Vacíos y temas olvidados</p>
+  <ul class="gaps-list">
+    <li><strong>La migración venezolana como política de Estado.</strong> Solo Fajardo tiene una propuesta comprehensiva para los más de 2,8 millones de migrantes venezolanos en Colombia. Los demás la subordinan a la política de seguridad o la mencionan de paso.</li>
+    <li><strong>Una reforma pensional honesta.</strong> Hay propuestas de subsidio al adulto mayor, pero ningún candidato presenta una reforma pensional de fondo que sea fiscal y socialmente sostenible a largo plazo en un país que envejece.</li>
+    <li><strong>Política exterior de largo plazo.</strong> En un mundo en reconfiguración geopolítica, solo Fajardo tiene una política exterior articulada. Los demás tienen posiciones reactivas o declaraciones de principio sin arquitectura diplomática.</li>
+    <li><strong>La inteligencia artificial como riesgo, no solo como herramienta.</strong> Todos mencionan la IA como palanca de gestión. Ninguno tiene una política que enfrente sus riesgos laborales, democráticos y de concentración de poder tecnológico.</li>
+    <li><strong>La salud mental como crisis sistémica.</strong> El deterioro de la salud mental juvenil y la epidemia silenciosa de suicidio en Colombia no tienen un lugar central en ningún programa, a pesar de que los indicadores alcanzaron cifras históricas en 2025.</li>
+    <li><strong>La ecuación fiscal sin resolver.</strong> Todos prometen reducir el déficit, no subir impuestos a la clase media y más gasto social. Esta ecuación no cierra y ningún candidato la resuelve con honestidad ante los electores.</li>
+  </ul>
+</div>
+
+</div><!-- /page-wrap -->
+
+<!-- CONCLUSIÓN -->
+<div class="conclusion-band">
+  <div class="conclusion-inner page-wrap">
+    <h2>¿Qué está <em>en juego</em>?</h2>
+    <p>Las elecciones de 2026 no son una disputa entre buenos y malos candidatos. Son una disputa entre cuatro teorías distintas sobre cómo funciona Colombia y cómo se transforma. Esas teorías tienen consecuencias reales: sobre quién paga los impuestos, quién recibe los servicios del Estado, cómo se trata al campesino que tiene coca en su parcela, si el médico de vereda existe o no.</p>
+    <p>Lo que los datos de encuesta revelan, un Cepeda que lidera en primera vuelta pero pierde en segunda vuelta contra los candidatos de derecha, es la fotografía de un país con mayoría de izquierda en la primera papeleta y mayoría de centroderecha en la segunda. Esa paradoja no es un error estadístico: es la descripción exacta de la Colombia política de 2026.</p>
+    <p>Lo que los datos de texto revelan es que la brecha más profunda no es programática sino gramatical: cada candidato habla un idioma político diferente. De la Espriella habla en imperativo moral, Fajardo habla en futuro institucional, Valencia habla en indicadores de gestión y Cepeda habla en vocativo comunitario. Esos idiomas no son neutrales, están cargados de suposiciones sobre quién tiene autoridad para hablar de política y a quién le hablan.</p>
+    <div class="method-note">
+      <strong>Sobre los límites del análisis.</strong> Este informe está basado en los documentos programáticos de los candidatos, no en su trayectoria, sus declaraciones en campaña, sus alianzas ni su historial de gobierno. Un programa es un texto de intenciones, no un contrato vinculante. Colombia tiene sobrada experiencia de candidatos que gobernaron de manera radicalmente distinta a lo que prometieron. El análisis de minería de texto (Word Cloud y LDA con Orange Data Mining) ofrece señales sobre la arquitectura semántica de los documentos, pero no captura el tono, no evalúa la viabilidad fiscal ni política de las propuestas y no distingue entre promesas sinceras e instrumentales. Esas evaluaciones requieren criterio humano, contexto histórico y conocimiento del sistema político colombiano. Los datos de encuestas corresponden al ponderador de La Silla Vacía (abril de 2026), Atlas Intel/Semana (6-9 de abril), GAD3/RCN (19 de marzo) y CNC/Cambio (22 de marzo).
+    </div>
+  </div>
+</div>
+
+<footer>
+  Nico Molina-Arroyave · Analista político · CPOP · Análisis programas presidenciales Colombia 2026
+</footer>
+
+<script>
+const labels = ['Ene 2026','Feb 2026','Mar 2026 (pre-consultas)','Mar 2026 (post-consultas)','Abr 2026'];
+
+const datasets = [
+  {
+    label: 'Cepeda',
+    data: [25.5, 28, 32, 35, 36],
+    borderColor: '#C0392B',
+    backgroundColor: 'rgba(192,57,43,0.08)',
+    borderWidth: 2.5,
+    pointBackgroundColor: '#C0392B',
+    pointRadius: 4,
+    pointHoverRadius: 6,
+    tension: 0.35,
+    fill: false
+  },
+  {
+    label: 'Valencia',
+    data: [2.9, 3.6, 5.2, 16, 22],
+    borderColor: '#27AE60',
+    backgroundColor: 'rgba(39,174,96,0.08)',
+    borderWidth: 2.5,
+    pointBackgroundColor: '#27AE60',
+    pointRadius: 4,
+    pointHoverRadius: 6,
+    tension: 0.35,
+    fill: false
+  },
+  {
+    label: 'De la Espriella',
+    data: [20.5, 22, 24, 26, 21],
+    borderColor: '#8E44AD',
+    backgroundColor: 'rgba(142,68,173,0.08)',
+    borderWidth: 2.5,
+    pointBackgroundColor: '#8E44AD',
+    pointRadius: 4,
+    pointHoverRadius: 6,
+    tension: 0.35,
+    fill: false,
+    borderDash: [5,3]
+  },
+  {
+    label: 'Fajardo',
+    data: [6.9, 6, 5.5, 4, 5],
+    borderColor: '#2980B9',
+    backgroundColor: 'rgba(41,128,185,0.08)',
+    borderWidth: 2,
+    pointBackgroundColor: '#2980B9',
+    pointRadius: 4,
+    pointHoverRadius: 6,
+    tension: 0.35,
+    fill: false,
+    borderDash: [3,3]
+  }
+];
+
+const ctx = document.getElementById('pollChart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: { labels, datasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(0,0,0,0.05)' },
+        ticks: { font: { size: 11 }, color: '#5A6170' }
+      },
+      y: {
+        min: 0,
+        max: 45,
+        grid: { color: 'rgba(0,0,0,0.06)' },
+        ticks: {
+          font: { size: 11 },
+          color: '#5A6170',
+          callback: v => v + '%'
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
